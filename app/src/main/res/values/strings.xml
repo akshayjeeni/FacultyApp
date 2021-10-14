@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FacultyApp</string>
+    <string name="chapter">Chapter</string>
+    <string name="topic">Topic</string>
 </resources>

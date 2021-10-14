@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FacultyApp">
-        <activity android:name=".questionlist.QuestionListActivity"></activity>
+        <activity android:name=".metadata.MetaDataActivity"></activity>
+        <activity android:name=".questiondetail.QuestionDetailActivity" />
+        <activity android:name=".questionlist.QuestionListActivity" />
         <activity android:name=".DashboardActivity" />
         <activity android:name=".login.LoginActivity">
             <intent-filter>

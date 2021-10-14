@@ -4,9 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
 import com.jeeni.facultyapp.R;
+import com.jeeni.facultyapp.questiondetail.QuestionDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +29,7 @@ public class QuestionListActivity extends AppCompatActivity {
         // find id's of all widgets
         recyclerViewAssignedQuestion = findViewById(R.id.recycler_view_question_list);
 
-        questionListAdapter = new QuestionListAdapter(questionList);
+        questionListAdapter = new QuestionListAdapter(questionList,this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerViewAssignedQuestion.setLayoutManager(mLayoutManager);
       //  recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -58,4 +62,5 @@ public class QuestionListActivity extends AppCompatActivity {
 
         questionListAdapter.notifyDataSetChanged();
     }
+
 }
