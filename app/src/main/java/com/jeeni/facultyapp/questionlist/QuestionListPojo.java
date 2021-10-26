@@ -2,17 +2,27 @@ package com.jeeni.facultyapp.questionlist;
 
 public class QuestionListPojo {
 
-    private String questionImgSrc;
+    private String questionGenImgUrl;
+   private int questionId;
 
-    public QuestionListPojo(String questionImgSrc) {
-        this.questionImgSrc = questionImgSrc;
+    public QuestionListPojo(String questionGenImgUrl, int questionId) {
+        this.questionGenImgUrl = questionGenImgUrl;
+        this.questionId = questionId;
     }
 
-    public String getQuestionImgSrc() {
-        return questionImgSrc;
+    public String getQuestionGenImgUrl() {
+        return questionGenImgUrl;
     }
 
-    public void setQuestionImgSrc(String questionImgSrc) {
-        this.questionImgSrc = questionImgSrc;
+    public void setQuestionGenImgUrl(String questionGenImgUrl) {
+        this.questionGenImgUrl = questionGenImgUrl;
+    }
+
+    public int getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(int questionId) {
+        this.questionId = questionId;
     }
 }

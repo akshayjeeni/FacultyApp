@@ -6,22 +6,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.card.MaterialCardView
+      android:id="@+id/card_question_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
         app:cardElevation="3dp"
+        android:clickable="true"
         android:background="@color/white"
         android:layout_margin="10dp">
         <ImageView
             android:id="@+id/imgView_question_list_item"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:src="@drawable/sample2">
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
         </ImageView>
-        <TextView
-            android:id="@+id/txtQuestText"
-            android:layout_width="match_parent"
-            android:visibility="gone"
-            android:layout_height="wrap_content"/>
     </com.google.android.material.card.MaterialCardView>
+
 </RelativeLayout>

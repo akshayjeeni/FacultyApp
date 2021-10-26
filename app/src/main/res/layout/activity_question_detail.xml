@@ -15,8 +15,9 @@
         android:id="@+id/cardView_metadata"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:layout_below="@+id/action_barnew">
+        android:layout_below="@+id/action_barnew"
+        android:clickable="true">
+
         <LinearLayout
 
             android:layout_width="match_parent"
@@ -49,10 +50,11 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/txt_chapter_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="1"
-                            android:text="Circular Motion"
+                            android:text=""
                             android:textColor="@color/black"
                             android:textSize="14sp" />
 
@@ -71,10 +73,11 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/txt_topic_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="1"
-                            android:text="Rotatory motion"
+                            android:text=""
                             android:textColor="@color/black"
                             android:textSize="14sp" />
 
@@ -93,10 +96,11 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/txt_complexity"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="1"
-                            android:text="CET - Medium"
+                            android:text=""
                             android:textColor="@color/black"
                             android:textSize="14sp" />
 
@@ -128,9 +132,10 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/txt_attempted_ques_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="89"
+                            android:text=""
                             android:textColor="@color/black"
                             android:textSize="14sp" />
 
@@ -149,9 +154,10 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/txt_correct_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="70"
+                            android:text=""
                             android:textColor="@color/black"
                             android:textSize="14sp" />
 
@@ -170,9 +176,10 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/txt_incorrect_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="20"
+                            android:text=""
                             android:textColor="@color/black"
                             android:textSize="14sp" />
 
@@ -189,11 +196,19 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/layout_btn"
         android:layout_below="@+id/cardView_metadata">
-<ImageView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="10dp"
-    android:src="@drawable/sample2"/>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/img_question_deatils"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="vertical"
+                android:scrollbars="vertical" />
+        </androidx.core.widget.NestedScrollView>
     </RelativeLayout>
 
     <LinearLayout
@@ -212,11 +227,12 @@
             android:layout_weight="1">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_prev"
+                android:id="@+id/btn_approve"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_centerInParent="true"
                 android:background="@drawable/btn_approval_bg"
+                android:clickable="true"
                 android:text="Approve"
                 android:textAllCaps="false"
                 android:textStyle="bold"
@@ -234,8 +250,21 @@
                 android:layout_height="40dp"
                 android:layout_centerInParent="true"
                 android:background="@drawable/btn_solution_bg"
+                android:clickable="true"
                 android:text="Solution"
                 android:textAllCaps="false"
+                app:backgroundTint="@null"
+                app:rippleColor="@color/white" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_question"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/btn_solution_bg"
+                android:text="Question"
+                android:textAllCaps="false"
+                android:visibility="gone"
                 app:backgroundTint="@null" />
         </RelativeLayout>
 
@@ -250,6 +279,7 @@
                 android:layout_height="40dp"
                 android:layout_centerInParent="true"
                 android:background="@drawable/btn_reject_bg"
+                android:clickable="true"
                 android:text="Reject"
                 android:textAllCaps="false"
                 app:backgroundTint="@null" />
