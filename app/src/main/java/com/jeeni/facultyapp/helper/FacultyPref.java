@@ -32,6 +32,18 @@ public class FacultyPref {
         }
         return null;
     }
+    public void loggedIn(String key, boolean value) {
+        SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
+        prefsEditor.putBoolean(key, value);
+        prefsEditor.apply();
+    }
+
+    public boolean loggedIn(String key) {
+        if (sharedPreferences != null) {
+            return sharedPreferences.getBoolean(key, false);
+        }
+        return false;
+    }
 
     public void clearAll() {
         SharedPreferences.Editor prefsEditor = sharedPreferences.edit();

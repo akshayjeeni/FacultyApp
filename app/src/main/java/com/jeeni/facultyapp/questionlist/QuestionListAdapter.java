@@ -44,8 +44,6 @@ public class QuestionListAdapter extends RecyclerView.Adapter<QuestionListAdapte
 
         QuestionListPojo questionListPojo = questionList.get(position);
 
-        Log.d("XXX: ", "img url: " + questionListPojo.getQuestionGenImgUrl());
-
         Picasso.get()
                 .load(questionListPojo.getQuestionGenImgUrl())
                 .placeholder(R.drawable.loading)

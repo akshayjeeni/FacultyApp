@@ -33,7 +33,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class QuestionListActivity extends AppCompatActivity {
-    String jAuth = "bJoOPqXauoFxvWdam/+6WGx2e5y7xrF/P0K2GRkUVGS7Z9BEUZu70A==";
+    String jAuth = "MBuvl1tXZUMlbjNQS/6CVvQscwTmrZvpY6IsXG0EyYOccey+zqPDLQ==";
     RecyclerView recyclerViewAssignedQuestion;
     private List<QuestionListPojo> questionList = new ArrayList<>();
     QuestionListAdapter questionListAdapter;
@@ -80,18 +80,18 @@ public class QuestionListActivity extends AppCompatActivity {
 
         // get the pending question's list from server
         if (facultyPref.getData("question_for_review_last_sync_datetime").isEmpty()) {
-            Log.d("XXX: ", "first time call: " + currentDateandTime);
+           // Log.d("XXX: ", "first time call: " + currentDateandTime);
              serverCallFetchThePendingQuestionList();
         } else {
             if (day > 0) {
-                 Log.d("XXX: ", "1 day over: " + currentDateandTime);
+              //   Log.d("XXX: ", "1 day over: " + currentDateandTime);
                  serverCallFetchThePendingQuestionList();
             } else if (day <= 0) {
                 if (hours >= 1) {
-                    Log.d("XXX: ", "1 hour over: " + currentDateandTime);
+                //    Log.d("XXX: ", "1 hour over: " + currentDateandTime);
                      serverCallFetchThePendingQuestionList();
                 }else{
-                    Log.d("XXX: ", "local call: " + currentDateandTime);
+                  //  Log.d("XXX: ", "local call: " + currentDateandTime);
                     getQuestionsDataFromLocalStorage();
                 }
             }

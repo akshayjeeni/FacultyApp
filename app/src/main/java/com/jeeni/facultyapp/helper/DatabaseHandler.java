@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.jeeni.facultyapp.metadata.ChapterTopicListDto;
+import com.jeeni.facultyapp.metadata.ChapterTopicListPojo;
 import com.jeeni.facultyapp.questionlist.PendingQuestionsPojo;
 import com.jeeni.facultyapp.questionlist.QuestionListPojo;
 
@@ -21,9 +23,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "facultyQB";
     private static final String TABLE_QUESTION_FOR_REVIEW = "questionForReview";
+    private static final String TABLE_CHAPTER_TOPIC = "chapter_topic";
 
     FacultyPref facultyPref;
-    // column name
+    // column name - questionForReview table
     private static final String KEY_ID = "id";
     private static final String KEY_QUESTION_ID = "question_id";
     private static final String KEY_DURATION = "duration";
@@ -47,15 +50,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_CORRECT = "correct";
     private static final String KEY_INCORRECT = "incorrect";
 
+    // column name - chapter_topic table
+    private static final String KEY_CT_ID = "id";
+    private static final String KEY_CT_COURSE_ID = "course_id";
+    private static final String KEY_CT_SUBJECT_ID = "subject_id";
+    private static final String KEY_CT_CHAPTER_ID = "chapter_id";
+    private static final String KEY_CT_CHAPTER_NAME = "chapter_name";
+    private static final String KEY_CT_TOPIC_ID = "topic_id";
+    private static final String KEY_CT_TOPIC_NAME = "topic_name";
+
+    // create questionForReview table
     String CREATE_TABLE_QUESTION_FOR_REVIEW = "CREATE TABLE " + TABLE_QUESTION_FOR_REVIEW + "("
             + KEY_ID + " INTEGER PRIMARY KEY,"
             + KEY_QUESTION_ID + " INTEGER,"
             + KEY_DURATION + " INTEGER,"
             + KEY_QUESTION_TEXT + " TEXT,"
             + KEY_SOLUTION_TEXT_DATA + " TEXT,"
-            + KEY_COURSE_ID + " INTEGER,"
+            + KEY_COURSE_ID + " INTEGER,"  //5
             + KEY_COURSE_NAME + " TEXT,"
-            + KEY_SUBJECT_ID + " INTEGER,"
+            + KEY_SUBJECT_ID + " INTEGER," // 7
             + KEY_SUBJECT_NAME + " TEXT,"
             + KEY_CHAPTER_ID + " INTEGER,"
             + KEY_CHAPTER_NAME + " TEXT," // 10
@@ -71,6 +84,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             + KEY_INCORRECT + " INTEGER,"  // 20
             + KEY_CORRECT + " INTEGER" + ")"; //21
 
+    String CREATE_TABLE_CHAPTER_TOPIC = "CREATE TABLE " + TABLE_CHAPTER_TOPIC + "("
+            + KEY_CT_ID + " INTEGER PRIMARY KEY,"
+            + KEY_CT_COURSE_ID + " INTEGER,"
+            + KEY_CT_SUBJECT_ID + " INTEGER,"
+            + KEY_CT_CHAPTER_ID + " INTEGER," // 3
+            + KEY_CT_CHAPTER_NAME + " TEXT," // 4
+            + KEY_CT_TOPIC_ID + " INTEGER,"
+            + KEY_CT_TOPIC_NAME + " TEXT" + ")";
+
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         facultyPref = FacultyPref.getInstance(context);
@@ -82,6 +104,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_QUESTION_FOR_REVIEW);
+        db.execSQL(CREATE_TABLE_CHAPTER_TOPIC);
         Log.d("XXX:", "table create: ");
     }
 
@@ -90,6 +113,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_QUESTION_FOR_REVIEW);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CHAPTER_TOPIC);
 
         // Create tables again
         onCreate(db);
@@ -141,6 +165,34 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+
+    // code to add the chapter topic list
+    public void addChapterTopic(List<ChapterTopicListDto> chapterTopicListDtos, int courseId, int subjId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.beginTransaction();
+        if (chapterTopicListDtos != null && !chapterTopicListDtos.isEmpty()) {
+            try {
+                for (ChapterTopicListDto response : chapterTopicListDtos) {
+                    ContentValues values = new ContentValues();
+                    values.put(KEY_CT_COURSE_ID, courseId);
+                    values.put(KEY_CT_SUBJECT_ID, subjId);
+                    values.put(KEY_CT_CHAPTER_NAME, response.getChapterName());
+                    values.put(KEY_CT_CHAPTER_ID, response.getChapterId());
+                    values.put(KEY_CT_TOPIC_ID, response.getTopicId());
+                    values.put(KEY_CT_TOPIC_NAME, response.getTopicName());
+
+
+                    db.insert(TABLE_CHAPTER_TOPIC, null, values);
+                    Log.d("XXX:", "table chapte_topic: data inserted");
+                }
+                db.setTransactionSuccessful();
+            } finally {
+                db.endTransaction();
+            }
+        }
+    }
+
     // read pending question's
     public ArrayList<QuestionListPojo> readPendingQuestions() {
         // on below line we are creating a
@@ -167,6 +219,63 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursorQuestionList.close();
         return questionModalArrayList;
     }
+
+    // fetch chapter list
+    public ArrayList<ChapterTopicListPojo> readChapterList(int courseId, int subId) {
+        // on below line we are creating a
+        // database for reading our database.
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // on below line we are creating a cursor with query to read data from database.
+        String selectQuesry = "SELECT distinct(chapter_id),chapter_name FROM " + TABLE_CHAPTER_TOPIC + "\t" + " WHERE course_id  = " + courseId + " AND subject_id = " + subId;
+
+        Cursor cursorChapterTopicList = db.rawQuery(selectQuesry, null);
+
+        // on below line we are creating a new array list.
+        ArrayList<ChapterTopicListPojo> chapterTopicListPojos = new ArrayList<>();
+
+        // moving our cursor to first position.
+        if (cursorChapterTopicList.moveToFirst()) {
+            do {
+                // on below line we are adding the data from cursor to our array list.
+                chapterTopicListPojos.add(new ChapterTopicListPojo(cursorChapterTopicList.getInt(cursorChapterTopicList.getColumnIndex(KEY_CT_CHAPTER_ID)),
+                        cursorChapterTopicList.getString(cursorChapterTopicList.getColumnIndex(KEY_CT_CHAPTER_NAME))));
+            } while (cursorChapterTopicList.moveToNext());
+            // moving our cursor to next.
+        }
+        // at last closing our cursor
+        // and returning our array list.
+        cursorChapterTopicList.close();
+        return chapterTopicListPojos;
+    }
+   // fetch topic list
+   public ArrayList<ChapterTopicListPojo> readTopicList(int chapterId) {
+       Log.d("XXX: ", "chpter id: "+chapterId);
+
+       SQLiteDatabase db = this.getReadableDatabase();
+
+       // on below line we are creating a cursor with query to read data from database.
+       String selectQuesry = "SELECT * FROM " + TABLE_CHAPTER_TOPIC + "\t" + " WHERE chapter_id  = " + chapterId;
+
+       Cursor cursorChapterTopicList = db.rawQuery(selectQuesry, null);
+
+       // on below line we are creating a new array list.
+       ArrayList<ChapterTopicListPojo> chapterTopicListPojos = new ArrayList<>();
+
+       // moving our cursor to first position.
+       if (cursorChapterTopicList.moveToFirst()) {
+           do {
+               // on below line we are adding the data from cursor to our array list.
+               chapterTopicListPojos.add(new ChapterTopicListPojo(cursorChapterTopicList.getColumnIndex(KEY_CT_TOPIC_ID),
+                       cursorChapterTopicList.getString(cursorChapterTopicList.getColumnIndex(KEY_CT_TOPIC_NAME))));
+           } while (cursorChapterTopicList.moveToNext());
+           // moving our cursor to next.
+       }
+       // at last closing our cursor
+       // and returning our array list.
+       cursorChapterTopicList.close();
+       return chapterTopicListPojos;
+   }
 
     // delete records from quesion_for_review table
     public void clearQuesForReview() {
@@ -200,4 +309,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
+    public Cursor getChapterTopicListByCourseIdAndSubId(int courseId, int subId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuesry = "SELECT * FROM " + TABLE_CHAPTER_TOPIC + "\t" + " WHERE course_id  = " + courseId + " AND subject_id = " + subId;
+        Log.d("XXX: ", "getChapterTopicListByCourseIdAndSubId: " + selectQuesry);
+        return db.rawQuery(selectQuesry, null);
+    }
 }

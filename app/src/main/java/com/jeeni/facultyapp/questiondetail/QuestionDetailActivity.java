@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,7 +31,6 @@ public class QuestionDetailActivity extends AppCompatActivity implements View.On
     TextView txtQuesId, txtChapterName, txtTopicName, txtComplexity, txtAttemptedCount, txtIncorrectCount, txtCorrectCount;
     Integer currentQuesId;
     MaterialButton btnSolution,btnApprove,btnReject,btnQuestion;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +82,8 @@ public class QuestionDetailActivity extends AppCompatActivity implements View.On
         switch (v.getId()) {
             case R.id.cardView_metadata:
                 Intent intent = new Intent(QuestionDetailActivity.this, MetaDataActivity.class);
+                Log.d("XXX: ", "currentqid: "+currentQuesId);
+                intent.putExtra("questionId",currentQuesId);
                 startActivity(intent);
                 break;
             case R.id.btn_next:
