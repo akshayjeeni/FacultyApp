@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.jeeni.facultyapp.R;
 import com.jeeni.facultyapp.helper.DatabaseHandler;
 import com.jeeni.facultyapp.helper.FacultyPref;
+import com.jeeni.facultyapp.login.LoginActivity;
 import com.jeeni.facultyapp.questiondetail.QuestionDetailActivity;
 import com.jeeni.facultyapp.services.Api;
 import com.jeeni.facultyapp.services.RetrofitClient;
@@ -33,7 +34,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class QuestionListActivity extends AppCompatActivity {
-    String jAuth = "MBuvl1tXZUMlbjNQS/6CVvQscwTmrZvpY6IsXG0EyYOccey+zqPDLQ==";
     RecyclerView recyclerViewAssignedQuestion;
     private List<QuestionListPojo> questionList = new ArrayList<>();
     QuestionListAdapter questionListAdapter;
@@ -80,18 +80,14 @@ public class QuestionListActivity extends AppCompatActivity {
 
         // get the pending question's list from server
         if (facultyPref.getData("question_for_review_last_sync_datetime").isEmpty()) {
-           // Log.d("XXX: ", "first time call: " + currentDateandTime);
              serverCallFetchThePendingQuestionList();
         } else {
             if (day > 0) {
-              //   Log.d("XXX: ", "1 day over: " + currentDateandTime);
                  serverCallFetchThePendingQuestionList();
             } else if (day <= 0) {
                 if (hours >= 1) {
-                //    Log.d("XXX: ", "1 hour over: " + currentDateandTime);
                      serverCallFetchThePendingQuestionList();
                 }else{
-                  //  Log.d("XXX: ", "local call: " + currentDateandTime);
                     getQuestionsDataFromLocalStorage();
                 }
             }
@@ -104,7 +100,7 @@ public class QuestionListActivity extends AppCompatActivity {
         Api retrofitServices = RetrofitClient
                 .getClient(30, true)
                 .create(Api.class);
-        Call<List<PendingQuestionsPojo>> call = retrofitServices.getPendingQuestionsPojo(jAuth);
+        Call<List<PendingQuestionsPojo>> call = retrofitServices.getPendingQuestionsPojo(facultyPref.getData("jauth"));
         call.enqueue(new Callback<List<PendingQuestionsPojo>>() {
             @Override
             public void onResponse(Call<List<PendingQuestionsPojo>> call, Response<List<PendingQuestionsPojo>> response) {
@@ -115,6 +111,14 @@ public class QuestionListActivity extends AppCompatActivity {
                     db.addQuestionsForReview(pendingQuestionsPojoList);
                     getQuestionsDataFromLocalStorage();
                 }
+                if (response.code() == 401) {
+                    facultyPref.loggedIn("loggedInStatus", false);
+                    Toast.makeText(QuestionListActivity.this, "Session expired,please login again!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(QuestionListActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
             }
 
             @Override
@@ -133,13 +137,11 @@ public class QuestionListActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         // list from db .
         questionArrayList = db.readPendingQuestions();
-        // Log.d("XXX: ", "prepareQuestionsData: "+questionArrayList.size());
         if (questionArrayList.size() <= 0) {
             progressBar.setVisibility(View.GONE);
             quesListEmpty.setVisibility(View.VISIBLE);
         } else {
             quesListEmpty.setVisibility(View.GONE);
-            Log.d("XXX: ", "prepareQuestionsData: " + questionArrayList.size());
             progressBar.setVisibility(View.GONE);
             //  questionListAdapter = new QuestionListAdapter(questionArrayList, this);
             questionListAdapter.addAllData(questionArrayList);
@@ -177,5 +179,16 @@ public class QuestionListActivity extends AppCompatActivity {
         System.out.printf(
                 "%d days, %d hours, %d minutes, %d seconds%n",
                 elapsedDays, elapsedHours, elapsedMinutes, elapsedSeconds);
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("XXXX:", "qlist: onPause: ");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("XXXX:", "qlist: onResume: ");
     }
 }

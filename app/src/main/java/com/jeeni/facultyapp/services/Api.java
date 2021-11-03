@@ -28,4 +28,9 @@ public interface Api {
     Call<UserPojo> loginAuthentication( @Field("email") String loginId,
                                         @Field("password") String password,
                                         @Field("deviceId") String deviceIMEI);
+
+    @GET("faculty/reject/{questionID}/{Comment}")
+    Call<ResponseBody> rejectQuestion(@Header("jauth") String jAuth,
+                                                        @Path("questionID") int questionID,
+                                                        @Path("Comment") String Comment);
 }

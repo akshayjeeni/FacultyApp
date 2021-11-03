@@ -266,7 +266,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
        if (cursorChapterTopicList.moveToFirst()) {
            do {
                // on below line we are adding the data from cursor to our array list.
-               chapterTopicListPojos.add(new ChapterTopicListPojo(cursorChapterTopicList.getColumnIndex(KEY_CT_TOPIC_ID),
+               chapterTopicListPojos.add(new ChapterTopicListPojo(
+                       cursorChapterTopicList.getInt(cursorChapterTopicList.getColumnIndex(KEY_CT_TOPIC_ID)),
                        cursorChapterTopicList.getString(cursorChapterTopicList.getColumnIndex(KEY_CT_TOPIC_NAME))));
            } while (cursorChapterTopicList.moveToNext());
            // moving our cursor to next.
@@ -274,6 +275,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
        // at last closing our cursor
        // and returning our array list.
        cursorChapterTopicList.close();
+     //  Log.d("XXX: ", "onItemClick: " + chapterTopicListPojos.size());
        return chapterTopicListPojos;
    }
 
@@ -314,5 +316,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String selectQuesry = "SELECT * FROM " + TABLE_CHAPTER_TOPIC + "\t" + " WHERE course_id  = " + courseId + " AND subject_id = " + subId;
         Log.d("XXX: ", "getChapterTopicListByCourseIdAndSubId: " + selectQuesry);
         return db.rawQuery(selectQuesry, null);
+    }
+
+    public void removeQuestion(int questionId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuesry = "DELETE FROM " + TABLE_QUESTION_FOR_REVIEW + "\t" + " WHERE question_id  = " + questionId;
+        db.rawQuery(selectQuesry, null);
     }
 }

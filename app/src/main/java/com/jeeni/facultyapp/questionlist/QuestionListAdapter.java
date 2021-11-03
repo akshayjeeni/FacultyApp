@@ -1,5 +1,6 @@
 package com.jeeni.facultyapp.questionlist;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -56,6 +57,7 @@ public class QuestionListAdapter extends RecyclerView.Adapter<QuestionListAdapte
                 Intent intent = new Intent(context, QuestionDetailActivity.class);
                 intent.putExtra("questionId",questionListPojo.getQuestionId());
                 context.startActivity(intent);
+                ((Activity)context).finish();
             }
         });
     }

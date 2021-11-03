@@ -10,8 +10,11 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -54,18 +57,22 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         findAllWidget();
+        txtUserName.addTextChangedListener(new ValidationTextWatcher(txtUserName));
+        txtPassword.addTextChangedListener(new ValidationTextWatcher(txtPassword));
+
         getDeviceME();
         //  textInputLayoutPwd.setError("Pwd required");
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (txtUserName.getText().toString().isEmpty()) {
-                    textInputLayoutUserName.setError("username is required!");
-                } else if (txtPassword.getText().toString().isEmpty()) {
-                    textInputLayoutPwd.setError("password is required!");
-                } else {
-                    callLoginApi(txtUserName.getText().toString(), txtPassword.getText().toString());
+
+                if (!validateEmail()) {
+                    return;
                 }
+                if (!validatePassword()) {
+                    return;
+                }
+                callLoginApi(txtUserName.getText().toString(), txtPassword.getText().toString());
             }
         });
     }
@@ -91,7 +98,6 @@ public class LoginActivity extends AppCompatActivity {
         call.enqueue(new Callback<UserPojo>() {
             @Override
             public void onResponse(Call<UserPojo> call, Response<UserPojo> response) {
-                Log.d("XXX:", "onResponse: "+response.code());
                 progressBar.setVisibility(View.GONE);
 
                 if (response.code() == 401) {
@@ -126,6 +132,8 @@ public class LoginActivity extends AppCompatActivity {
         txtUserName = findViewById(R.id.txt_username);
         txtPassword = findViewById(R.id.txt_password);
         progressBar = findViewById(R.id.progress_login);
+
+        // textInputLayoutUserName.
     }
 
     private void readWritePermissions() {
@@ -149,4 +157,60 @@ public class LoginActivity extends AppCompatActivity {
         }
         return true;
     }
+
+    private class ValidationTextWatcher implements TextWatcher {
+        private View view;
+
+        private ValidationTextWatcher(View view) {
+            this.view = view;
+        }
+
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            switch (view.getId()) {
+                case R.id.txt_password:
+                    validatePassword();
+                    break;
+                case R.id.txt_username:
+                    validateEmail();
+                    break;
+            }
+        }
+
+    }
+
+    private boolean validateEmail() {
+        if (txtUserName.getText().toString().trim().isEmpty()) {
+            textInputLayoutUserName.setError("username is required");
+            requestFocus(txtUserName);
+            return false;
+        } else {
+            textInputLayoutUserName.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+    private boolean validatePassword() {
+        if (txtPassword.getText().toString().trim().isEmpty()) {
+            textInputLayoutPwd.setError("Password is required");
+            requestFocus(txtPassword);
+            return false;
+        } else {
+            textInputLayoutPwd.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+    private void requestFocus(View view) {
+        if (view.requestFocus()) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+    }
 }
+
