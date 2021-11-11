@@ -49,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         facultyPref = FacultyPref.getInstance(this);
 
+
         if (facultyPref.loggedIn("loggedInStatus")) {
             Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
             startActivity(intent);
@@ -60,12 +61,11 @@ public class LoginActivity extends AppCompatActivity {
         txtUserName.addTextChangedListener(new ValidationTextWatcher(txtUserName));
         txtPassword.addTextChangedListener(new ValidationTextWatcher(txtPassword));
 
-        getDeviceME();
+     //   getDeviceME();
         //  textInputLayoutPwd.setError("Pwd required");
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (!validateEmail()) {
                     return;
                 }
@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void getDeviceME() {
+    /*private void getDeviceME() {
         telephonyManager = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
@@ -87,14 +87,14 @@ public class LoginActivity extends AppCompatActivity {
 
         if (deviceIMEI == null)
             deviceIMEI = android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
-    }
+    }*/
 
     private void callLoginApi(String userName, String password) {
         progressBar.setVisibility(View.VISIBLE);
         Api retrofitServices = RetrofitClient
                 .getClient(30, true)
                 .create(Api.class);
-        Call<UserPojo> call = retrofitServices.loginAuthentication(userName, password, deviceIMEI);
+        Call<UserPojo> call = retrofitServices.loginAuthentication(userName, password);
         call.enqueue(new Callback<UserPojo>() {
             @Override
             public void onResponse(Call<UserPojo> call, Response<UserPojo> response) {
@@ -110,6 +110,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     facultyPref.loggedIn("loggedInStatus", true);
                     facultyPref.saveData("jauth", userPojo.getJauth());
+                    facultyPref.saveData("facultyId",userPojo.getId().toString());
                     Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
                     startActivity(intent);
                     finish();
@@ -126,13 +127,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void findAllWidget() {
+
         textInputLayoutUserName = findViewById(R.id.text_lay_username);
         textInputLayoutPwd = findViewById(R.id.text_lay_pwd);
         btnLogin = findViewById(R.id.button_login);
         txtUserName = findViewById(R.id.txt_username);
         txtPassword = findViewById(R.id.txt_password);
         progressBar = findViewById(R.id.progress_login);
-
         // textInputLayoutUserName.
     }
 

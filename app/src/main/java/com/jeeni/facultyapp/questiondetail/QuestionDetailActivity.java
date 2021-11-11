@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
+import com.google.gson.Gson;
 import com.jeeni.facultyapp.helper.DatabaseHandler;
 import com.jeeni.facultyapp.helper.FacultyPref;
 import com.jeeni.facultyapp.login.LoginActivity;
@@ -40,6 +41,7 @@ import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -190,7 +192,7 @@ public class QuestionDetailActivity extends AppCompatActivity implements View.On
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
         Button theButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-        theButton.setOnClickListener(new CustomListener(alertDialog));
+        theButton.setOnClickListener(new CustomListener(alertDialog, approve));
 
         input.addTextChangedListener(new TextWatcher() {
             @Override
@@ -200,9 +202,9 @@ public class QuestionDetailActivity extends AppCompatActivity implements View.On
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length()>0){
+                if (s.length() > 0) {
                     input.setError(null);
-                }else {
+                } else {
                     input.setError("Comment can not be blank");
                 }
             }
@@ -213,24 +215,113 @@ public class QuestionDetailActivity extends AppCompatActivity implements View.On
             }
         });
     }
+
     class CustomListener implements View.OnClickListener {
         private final Dialog dialog;
-        public CustomListener(Dialog dialog) {
+        private boolean approve;
+
+        public CustomListener(Dialog dialog, boolean approve) {
             this.dialog = dialog;
+            this.approve = approve;
         }
+
         @Override
         public void onClick(View v) {
             // put your code here
             String mValue = input.getText().toString();
-            if(mValue.isEmpty()||mValue.equals("")){
-               // input.requestFocus();
+            if (mValue.isEmpty() || mValue.equals("")) {
+                // input.requestFocus();
                 input.setError("Comment can not be blank");
-              //  Toast.makeText(QuestionDetailActivity.this, "Invalid data", Toast.LENGTH_SHORT).show();
-            }else{
+                //  Toast.makeText(QuestionDetailActivity.this, "Invalid data", Toast.LENGTH_SHORT).show();
+            } else {
                 dialog.dismiss();
-                rejectQuestionApiCall(currentQuesId,mValue);
+                if (approve) {
+                    approveQuestionApiCall(currentQuesId, mValue);
+                } else {
+                    //Toast.makeText(QuestionDetailActivity.this, "reject", Toast.LENGTH_SHORT).show();
+                    rejectQuestionApiCall(currentQuesId, mValue);
+                }
+
             }
         }
+    }
+
+    private void approveQuestionApiCall(Integer currentQuesId, String mValue) {
+        progressBar.setVisibility(View.VISIBLE);
+        Api retrofitServices = RetrofitClient
+                .getClient(30, true)
+                .create(Api.class);
+
+        Cursor cursor = db.getCurrentQuestion(currentQuesId);
+        cursor.moveToFirst();
+
+        approveQuestionVo approveQuestionVo = new approveQuestionVo();
+        approveQuestionVo.setId(cursor.getInt(1));
+        approveQuestionVo.setCourseId(cursor.getInt(5));
+        approveQuestionVo.setSubjectId(cursor.getInt(7));
+        approveQuestionVo.setChapterId(cursor.getInt(9));
+        approveQuestionVo.setTopicId(cursor.getInt(11));
+        approveQuestionVo.setComplexity(cursor.getInt(13));
+        approveQuestionVo.setType(cursor.getInt(14));
+        approveQuestionVo.setComment(mValue);
+        List<Integer> courseIdList = new ArrayList<>();
+        List<Integer> subjectIdList = new ArrayList<>();
+        List<Integer> chapterIdList = new ArrayList<>();
+        List<Integer> topicIdList = new ArrayList<>();
+        courseIdList.add(cursor.getInt(5));
+        subjectIdList.add(cursor.getInt(7));
+        chapterIdList.add(cursor.getInt(9));
+        topicIdList.add(cursor.getInt(11));
+
+        approveQuestionVo.setCourseIds(courseIdList);
+        approveQuestionVo.setSubjectIds(subjectIdList);
+        approveQuestionVo.setChapterIds(chapterIdList);
+        approveQuestionVo.setTopicIds(topicIdList);
+
+        String jsonString = new Gson().toJson(approveQuestionVo);
+        String jsonType = "application/json";
+
+        Log.d("xxxxx", "json: " + jsonString);
+        Log.d("xxxxx", "facultyid: " + facultyPref.getData("facultyId"));
+        Log.d("xxxxx", "jauth: " + facultyPref.getData("jauth"));
+
+
+        Call<ResponseBody> call = retrofitServices.approveQuestion(facultyPref.getData("jauth"), jsonString, facultyPref.getData("facultyId"));
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                progressBar.setVisibility(View.GONE);
+                Log.d("xxxxx", "response: " + response.code());
+
+                if (response.code() == 200) {
+                    boolean result = db.deleteQuestion(currentQuesId);
+                    Log.d("XXXX", "delete ques : "+result);
+                    Toast.makeText(QuestionDetailActivity.this, "Question approved successfully", Toast.LENGTH_SHORT).show();
+                    facultyPref.saveBooleanData("questionListReload",true);
+                    Intent intent = new Intent(QuestionDetailActivity.this, QuestionListActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    startActivity(intent);
+                }
+                if (response.code() == 401) {
+                    facultyPref.loggedIn("loggedInStatus", false);
+                    Toast.makeText(QuestionDetailActivity.this, "Session expired,please login again!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(QuestionDetailActivity.this, LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();
+                }
+                if (response.code() == 500) {
+                    Toast.makeText(QuestionDetailActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
+                Log.d("XXXX", "onFailure: "+t.getMessage());
+                Toast.makeText(QuestionDetailActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void rejectQuestionApiCall(Integer currentQuesId, String comment) {
@@ -238,14 +329,22 @@ public class QuestionDetailActivity extends AppCompatActivity implements View.On
         Api retrofitServices = RetrofitClient
                 .getClient(30, true)
                 .create(Api.class);
-        Call<ResponseBody> call = retrofitServices.rejectQuestion(facultyPref.getData("jauth"),currentQuesId,comment);
+        Log.d("xxxxx", "qid: " + currentQuesId);
+        Log.d("xxxxx", "facultyid: " + facultyPref.getData("facultyId"));
+        Log.d("xxxxx", "cmt: " + comment);
+        Call<ResponseBody> call = retrofitServices.rejectQuestion(facultyPref.getData("jauth"), currentQuesId, comment,facultyPref.getData("facultyId"));
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 progressBar.setVisibility(View.GONE);
+                Log.d("xxxxx", "response: " + response.code());
                 if (response.code() == 200) {
-                    db.removeQuestion(currentQuesId);
-                    finish();
+                    boolean result = db.deleteQuestion(currentQuesId);
+                    Toast.makeText(QuestionDetailActivity.this, "Question rejected successfully", Toast.LENGTH_SHORT).show();
+                    facultyPref.saveBooleanData("questionListReload",true);
+                    Intent intent = new Intent(QuestionDetailActivity.this, QuestionListActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    startActivity(intent);
                 }
                 if (response.code() == 401) {
                     facultyPref.loggedIn("loggedInStatus", false);
@@ -341,11 +440,11 @@ public class QuestionDetailActivity extends AppCompatActivity implements View.On
         }
     }
 
-    @Override
+   /* @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(QuestionDetailActivity.this,QuestionListActivity.class);
+        Intent intent = new Intent(QuestionDetailActivity.this, QuestionListActivity.class);
         startActivity(intent);
         finish();
-    }
+    }*/
 }

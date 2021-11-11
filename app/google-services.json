@@ -1,0 +1,603 @@
+{
+  "project_info": {
+    "project_number": "770147549996",
+    "firebase_url": "https://jeeni-27231.firebaseio.com",
+    "project_id": "jeeni-27231",
+    "storage_bucket": "jeeni-27231.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:770147549996:android:2f45cf9487f5ac8f8a6289",
+        "android_client_info": {
+          "package_name": "com.jeeni.abhishekjainchemclasses"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "770147549996-lc91tni0csf2147i2ccgetg92nopl4f1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jeeni.abhishekjainchemclasses",
+            "certificate_hash": "83f6006c6375520e0625be96ca5b1f99275273d2"
+          }
+        },
+        {
+          "client_id": "770147549996-hm0bp5anutlvit3lrkt3ieat2ee36bin.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4doC3NPLX66lOGCHFsPJ1PBNTS5pFYo0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "770147549996-hm0bp5anutlvit3lrkt3ieat2ee36bin.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:770147549996:android:af3d3a6baa5286f08a6289",
+        "android_client_info": {
+          "package_name": "com.jeeni.adypu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "770147549996-c4es1fu5safjo6ntqru9k84sor2dkr38.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jeeni.adypu",
+            "certificate_hash": "83f6006c6375520e0625be96ca5b1f99275273d2"
+          }
+        },
+        {
+          "client_id": "770147549996-hm0bp5anutlvit3lrkt3ieat2ee36bin.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4doC3NPLX66lOGCHFsPJ1PBNTS5pFYo0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "770147549996-hm0bp5anutlvit3lrkt3ieat2ee36bin.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:770147549996:android:7deffa69e68365818a6289",
+        "android_client_info": {
+          "package_name": "com.jeeni.barwalecollege"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "770147549996-gtmsgrak4fg3tugpii8g8t5htobrvem6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jeeni.barwalecollege",
+            "certificate_hash": "83f6006c6375520e0625be96ca5b1f99275273d2"
+          }
+        },
+        {
+          "client_id": "770147549996-hm0bp5anutlvit3lrkt3ieat2ee36bin.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4doC3NPLX66lOGCHFsPJ1PBNTS5pFYo0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "770147549996-hm0bp5anutlvit3lrkt3ieat2ee36bin.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:770147549996:android:291640e3bc17d62b8a6289",
+        "android_client_info": {
+          "package_name": "com.jeeni.boraclasses"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "770147549996-gntr3elir274lmlei1eifh8hhqb61gpa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jeeni.boraclasses",
+            "certificate_hash": "dcfb4265ccd8b5c52dfbedd05fda578b1d9cf4a6"
+          }
+        },
+        {
+          "client_id": "770147549996-hm0bp5anutlvit3lrkt3ieat2ee36bin.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4doC3NPLX66lOGCHFsPJ1PBNTS5pFYo0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "770147549996-hm0bp5anutlvit3lrkt3ieat2ee36bin.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:770147549996:android:22df131754a5a73b8a6289",
+        "android_client_info": {
+          "package_name": "com.jeeni.dayanandcollege"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "770147549996-o28rt5oth30d9arlrbrr7un3dvn8l5gr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jeeni.dayanandcollege",
+            "certificate_hash": "83f6006c6375520e0625be96ca5b1f99275273d2"
+          }
+        },
+        {
+          "client_id": "770147549996-hm0bp5anutlvit3lrkt3ieat2ee36bin.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4doC3NPLX66lOGCHFsPJ1PBNTS5pFYo0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "770147549996-hm0bp5anutlvit3lrkt3ieat2ee36bin.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:770147549996:android:dce03a49920a08768a6289",
+        "android_client_info": {
+          "package_name": "com.jeeni.enark"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "770147549996-hm0bp5anutlvit3lrkt3ieat2ee36bin.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4doC3NPLX66lOGCHFsPJ1PBNTS5pFYo0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "770147549996-hm0bp5anutlvit3lrkt3ieat2ee36bin.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:770147549996:android:c8e5b05a7de46a438a6289",
+        "android_client_info": {
+          "package_name": "com.jeeni.facultyapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "770147549996-im69cmqdm94t095154imk92kavbdgpqe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jeeni.facultyapp",
+            "certificate_hash": "dcfb4265ccd8b5c52dfbedd05fda578b1d9cf4a6"
+          }
+        },
+        {
+          "client_id": "770147549996-hm0bp5anutlvit3lrkt3ieat2ee36bin.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4doC3NPLX66lOGCHFsPJ1PBNTS5pFYo0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "770147549996-hm0bp5anutlvit3lrkt3ieat2ee36bin.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:770147549996:android:62c31fc64ba85fef8a6289",
+        "android_client_info": {
+          "package_name": "com.jeeni.fg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "770147549996-27js06992phshgdlf13iph9uh09h9vka.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jeeni.fg",
+            "certificate_hash": "83f6006c6375520e0625be96ca5b1f99275273d2"
+          }
+        },
+        {
+          "client_id": "770147549996-hm0bp5anutlvit3lrkt3ieat2ee36bin.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4doC3NPLX66lOGCHFsPJ1PBNTS5pFYo0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "770147549996-hm0bp5anutlvit3lrkt3ieat2ee36bin.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:770147549996:android:604cdea697c1ab5d8a6289",
+        "android_client_info": {
+          "package_name": "com.jeeni.finaltest2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "770147549996-nbkm3anc9g32uh55cjhd11q1ue1ck96b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jeeni.finaltest2",
+            "certificate_hash": "83f6006c6375520e0625be96ca5b1f99275273d2"
+          }
+        },
+        {
+          "client_id": "770147549996-hm0bp5anutlvit3lrkt3ieat2ee36bin.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4doC3NPLX66lOGCHFsPJ1PBNTS5pFYo0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "770147549996-hm0bp5anutlvit3lrkt3ieat2ee36bin.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:770147549996:android:79fadaf47c507c418a6289",
+        "android_client_info": {
+          "package_name": "com.jeeni.mathslifeacademy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "770147549996-e632dioiolcc4e2pb2eqbi5qqpkv23hc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jeeni.mathslifeacademy",
+            "certificate_hash": "83f6006c6375520e0625be96ca5b1f99275273d2"
+          }
+        },
+        {
+          "client_id": "770147549996-hm0bp5anutlvit3lrkt3ieat2ee36bin.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4doC3NPLX66lOGCHFsPJ1PBNTS5pFYo0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "770147549996-hm0bp5anutlvit3lrkt3ieat2ee36bin.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:770147549996:android:1d4136f46ec180d98a6289",
+        "android_client_info": {
+          "package_name": "com.jeeni.sarthakstudies"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "770147549996-gss8srn6an35hudnu2q9iaep5ohae0rp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jeeni.sarthakstudies",
+            "certificate_hash": "83f6006c6375520e0625be96ca5b1f99275273d2"
+          }
+        },
+        {
+          "client_id": "770147549996-hm0bp5anutlvit3lrkt3ieat2ee36bin.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4doC3NPLX66lOGCHFsPJ1PBNTS5pFYo0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "770147549996-hm0bp5anutlvit3lrkt3ieat2ee36bin.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:770147549996:android:f791fab2196dd4388a6289",
+        "android_client_info": {
+          "package_name": "com.jeeni.sgm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "770147549996-bbha3sn1in94c2q96ip730v1jis07imv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jeeni.sgm",
+            "certificate_hash": "83f6006c6375520e0625be96ca5b1f99275273d2"
+          }
+        },
+        {
+          "client_id": "770147549996-hm0bp5anutlvit3lrkt3ieat2ee36bin.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4doC3NPLX66lOGCHFsPJ1PBNTS5pFYo0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "770147549996-hm0bp5anutlvit3lrkt3ieat2ee36bin.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:770147549996:android:e1fbafb0c962daf08a6289",
+        "android_client_info": {
+          "package_name": "com.jeeni.shardabaipawar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "770147549996-g1jlbdjs8eepjb44ugu17l7c17oilfg5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jeeni.shardabaipawar",
+            "certificate_hash": "83f6006c6375520e0625be96ca5b1f99275273d2"
+          }
+        },
+        {
+          "client_id": "770147549996-hm0bp5anutlvit3lrkt3ieat2ee36bin.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4doC3NPLX66lOGCHFsPJ1PBNTS5pFYo0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "770147549996-hm0bp5anutlvit3lrkt3ieat2ee36bin.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:770147549996:android:22815aa8d11a21e58a6289",
+        "android_client_info": {
+          "package_name": "com.jeeni.vazeclassess2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "770147549996-604jdslo3fqv0vs8k8193tuj7rif4cmi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jeeni.vazeclassess2",
+            "certificate_hash": "83f6006c6375520e0625be96ca5b1f99275273d2"
+          }
+        },
+        {
+          "client_id": "770147549996-hm0bp5anutlvit3lrkt3ieat2ee36bin.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4doC3NPLX66lOGCHFsPJ1PBNTS5pFYo0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "770147549996-hm0bp5anutlvit3lrkt3ieat2ee36bin.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:770147549996:android:1266c1b9a9bae20a8a6289",
+        "android_client_info": {
+          "package_name": "com.push.rracademy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "770147549996-kproo997i6os0krd5eq1vvg3bnfne13r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.push.rracademy",
+            "certificate_hash": "83f6006c6375520e0625be96ca5b1f99275273d2"
+          }
+        },
+        {
+          "client_id": "770147549996-hm0bp5anutlvit3lrkt3ieat2ee36bin.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4doC3NPLX66lOGCHFsPJ1PBNTS5pFYo0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "770147549996-hm0bp5anutlvit3lrkt3ieat2ee36bin.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:770147549996:android:485f71962d96d00a8a6289",
+        "android_client_info": {
+          "package_name": "in.jeeni.jeeni.jeeniThreeL"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "770147549996-mpran42db9vv2qj5lqv994vkg22jv4eh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.jeeni.jeeni.jeeniThreeL",
+            "certificate_hash": "dcfb4265ccd8b5c52dfbedd05fda578b1d9cf4a6"
+          }
+        },
+        {
+          "client_id": "770147549996-qhs3l4v192qnpsi9i0m2fqr4fkm4rt38.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.jeeni.jeeni.jeeniThreeL",
+            "certificate_hash": "27fe9c2c8a3724dbcb9e86895fb9a81e3788cf91"
+          }
+        },
+        {
+          "client_id": "770147549996-hm0bp5anutlvit3lrkt3ieat2ee36bin.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4doC3NPLX66lOGCHFsPJ1PBNTS5pFYo0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "770147549996-hm0bp5anutlvit3lrkt3ieat2ee36bin.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

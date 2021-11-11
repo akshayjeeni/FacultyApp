@@ -50,5 +50,13 @@ public class Options {
         this._4 = _4;
     }
 
-
+    @Override
+    public String toString() {
+        return "Options{" +
+                "_1=" + _1 +
+                ", _2=" + _2 +
+                ", _3=" + _3 +
+                ", _4=" + _4 +
+                '}';
+    }
 }

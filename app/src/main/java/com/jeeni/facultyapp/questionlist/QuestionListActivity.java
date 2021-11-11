@@ -1,5 +1,6 @@
 package com.jeeni.facultyapp.questionlist;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -68,15 +69,7 @@ public class QuestionListActivity extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
         String currentDateandTime = sdf.format(new Date());
         // DateTimeUtils obj = new DateTimeUtils();
-        try {
-            Date date1 = sdf.parse(facultyPref.getData("question_for_review_last_sync_datetime"));
-            Date date2 = sdf.parse(currentDateandTime);
 
-            printDifference(date1, date2);
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
 
         // get the pending question's list from server
         if (facultyPref.getData("question_for_review_last_sync_datetime").isEmpty()) {
@@ -92,6 +85,16 @@ public class QuestionListActivity extends AppCompatActivity {
                 }
             }
         }
+
+        try {
+            Date date1 = sdf.parse(facultyPref.getData("question_for_review_last_sync_datetime"));
+            Date date2 = sdf.parse(currentDateandTime);
+
+            printDifference(date1, date2);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     private void serverCallFetchThePendingQuestionList() {
@@ -106,6 +109,7 @@ public class QuestionListActivity extends AppCompatActivity {
             public void onResponse(Call<List<PendingQuestionsPojo>> call, Response<List<PendingQuestionsPojo>> response) {
                 progressBar.setVisibility(View.GONE);
                 if (response.code() == 200) {
+                    Log.d("XXXX", "onResponse: "+response.body());
                     List<PendingQuestionsPojo> pendingQuestionsPojoList = response.body();
                     db.clearQuesForReview();
                     db.addQuestionsForReview(pendingQuestionsPojoList);
@@ -133,7 +137,7 @@ public class QuestionListActivity extends AppCompatActivity {
     private void getQuestionsDataFromLocalStorage() {
         List<QuestionListPojo> questionArrayList = new ArrayList<>();
         db = new DatabaseHandler(this);
-
+        Log.d("XXXX", "getQuestionsDataFromLocalStorage: ");
         progressBar.setVisibility(View.VISIBLE);
         // list from db .
         questionArrayList = db.readPendingQuestions();
@@ -190,5 +194,13 @@ public class QuestionListActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Log.d("XXXX:", "qlist: onResume: ");
+        if (facultyPref.loggedIn("questionListReload")){
+            finish();
+            startActivity(getIntent());
+            facultyPref.saveBooleanData("questionListReload",false);
+        }
+
+
     }
+
 }

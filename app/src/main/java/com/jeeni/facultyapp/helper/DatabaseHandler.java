@@ -70,7 +70,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             + KEY_COURSE_NAME + " TEXT,"
             + KEY_SUBJECT_ID + " INTEGER," // 7
             + KEY_SUBJECT_NAME + " TEXT,"
-            + KEY_CHAPTER_ID + " INTEGER,"
+            + KEY_CHAPTER_ID + " INTEGER," //9
             + KEY_CHAPTER_NAME + " TEXT," // 10
             + KEY_TOPIC_ID + " INTEGER,"
             + KEY_TOPIC_NAME + " TEXT," //12
@@ -141,7 +141,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     values.put(KEY_TOPIC_ID, response.getTopicId());
                     values.put(KEY_TOPIC_NAME, response.getTopicName());
                     values.put(KEY_COMPLEXITY, response.getComplexity());
-                    values.put(KEY_QUESTION_TYPE, response.getQuestionTypeId());
+                    values.put(KEY_QUESTION_TYPE, response.getType());
                     values.put(KEY_QUESTION_SUBTYPE, response.getQuestionSubType());
                     values.put(KEY_GEN_URL, response.getGenericImageUrl());
                     values.put(KEY_SOLN_URL, response.getSolutionUrl());
@@ -318,9 +318,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return db.rawQuery(selectQuesry, null);
     }
 
-    public void removeQuestion(int questionId) {
+    public boolean deleteQuestion(int questionId)
+    {
+        Log.d("XXX: ", "deleted qid: " + questionId);
         SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuesry = "DELETE FROM " + TABLE_QUESTION_FOR_REVIEW + "\t" + " WHERE question_id  = " + questionId;
-        db.rawQuery(selectQuesry, null);
+        return db.delete(TABLE_QUESTION_FOR_REVIEW, KEY_QUESTION_ID + "=" + questionId, null) > 0;
     }
 }

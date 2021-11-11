@@ -57,7 +57,7 @@ public class QuestionListAdapter extends RecyclerView.Adapter<QuestionListAdapte
                 Intent intent = new Intent(context, QuestionDetailActivity.class);
                 intent.putExtra("questionId",questionListPojo.getQuestionId());
                 context.startActivity(intent);
-                ((Activity)context).finish();
+                //((Activity)context).finish();
             }
         });
     }

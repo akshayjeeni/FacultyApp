@@ -37,6 +37,12 @@ public class FacultyPref {
         prefsEditor.putBoolean(key, value);
         prefsEditor.apply();
     }
+    public void saveBooleanData(String key, boolean value) {
+        SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
+        prefsEditor.putBoolean(key, value);
+        prefsEditor.apply();
+    }
+
 
     public boolean loggedIn(String key) {
         if (sharedPreferences != null) {

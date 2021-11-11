@@ -21,16 +21,23 @@ public interface Api {
 
     @GET("faculty/getChapterTopicList/{courseId}/{subjectId}")
     Call<List<ChapterTopicListDto>> getChapterTopicList(@Header("jauth") String jAuth,
-                                                  @Path("courseId") int courseId,
-                                                  @Path("subjectId") int subjectId);
+                                                        @Path("courseId") int courseId,
+                                                        @Path("subjectId") int subjectId);
+
     @FormUrlEncoded
     @POST("login/facultyLoginAuthentication")
-    Call<UserPojo> loginAuthentication( @Field("email") String loginId,
-                                        @Field("password") String password,
-                                        @Field("deviceId") String deviceIMEI);
+    Call<UserPojo> loginAuthentication(@Field("email") String loginId,
+                                       @Field("password") String password);
 
-    @GET("faculty/reject/{questionID}/{Comment}")
+    @GET("faculty/rejectQuestion/{questionID}/{Comment}/{facultyId}")
     Call<ResponseBody> rejectQuestion(@Header("jauth") String jAuth,
-                                                        @Path("questionID") int questionID,
-                                                        @Path("Comment") String Comment);
+                                      @Path("questionID") int questionID,
+                                      @Path("Comment") String Comment,
+                                      @Path("facultyId") String facultyId);
+
+    @FormUrlEncoded
+    @POST("faculty/approvQuestionForMobile")
+    Call<ResponseBody> approveQuestion(@Header("jauth") String jAuth,
+                                       @Field("questionVo") String questionVo,
+                                       @Field("facultyId") String facultyId);
 }
